@@ -23,12 +23,16 @@ header {
 main {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .palette, .controls {
   display: flex;
   flex-direction: column;
+}
+
+.palette button {
+  margin-right: 4px;
 }
 
 .palette button,
@@ -37,6 +41,7 @@ main {
   flex: 0 0 64px;
   width: 64px;
   border: 1px solid black;
+  margin-bottom: 4px;
 }
 
 .palette button {
@@ -70,6 +75,5 @@ main {
   font-family: sans-serif;
   font-weight: bold;
   padding: 4px;
-  margin: 4px 0;
 }
 

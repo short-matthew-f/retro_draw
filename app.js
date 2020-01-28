@@ -1,40 +1,64 @@
+const COLORS = [
+  "red", "orange", "yellow", "green", "blue", "rebeccapurple", "pink", "white", "black"
+];
+
+function makePalette() {
+  let palette = $('.palette');
+
+  for (let i = 0; i < COLORS.length; i++) {
+    let button = $('<button>')
+    button.css('backgroundColor', COLORS[i])
+    palette.append(button)
+  }
+}
+
+makePalette()
+
 function makeGrid() {
   let grid = $('.grid');
 
   for (let i = 0; i < 64; i++) {
-    let cell = $('<div></div>');
-    cell.attr('class', 'cell');
+    let cell = $('<div class="cell"></div>');
     grid.append(cell);
   }
 }
 
 makeGrid();
 
-$('.palette').on('click', 'button', function () {
+$('.palette button').click(function () {
   $('.active').removeClass('active');
   $(this).addClass('active');
 });
 
-$('.grid').on('click', '.cell', function () {
+$('.cell').click(function () {
   let activeColor = $('.palette .active').css('backgroundColor');
-  $(this).css('backgroundColor', activeColor);
+  let cellColor = $(this).css('backgroundColor');
+
+  if (cellColor === activeColor) {
+    $(this).css('backgroundColor', '');
+  } else {
+    $(this).css('backgroundColor', activeColor);
+  }
 });
 
-$('.clear').on('click', function () {
-  $('.cell').css('backgroundColor', '')
+$('.clear').click(function () {
+  $('.cell').css('backgroundColor', '');
+});
+
+$('.fill').click(function () {
+  let activeColor = $('.palette .active').css('backgroundColor');
+  $('.cell').css('backgroundColor', activeColor);
 })
 
-$('.fill').on('click', function () {
+$('.fill-empty').click(function () {
   let activeColor = $('.palette .active').css('backgroundColor');
-  $('.cell').css('backgroundColor', activeColor)
-})
+  let cells = $('.cell');
 
-$('.fill-empty').on('click', function () {
-  let activeColor = $('.palette .active').css('backgroundColor');
+  for (let i = 0; i < cells.length; i++) {
+    let cell = cells[i];
 
-  $('.cell').each(function (index, cell) {
     if ($(cell).css('backgroundColor') == 'rgba(0, 0, 0, 0)') {
-      $(cell).css('backgroundColor', activeColor)
+      $(cell).css('backgroundColor', activeColor);
     }
-  })
-})
+  }
+});
