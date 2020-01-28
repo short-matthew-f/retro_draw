@@ -26,18 +26,21 @@ main {
   align-items: center;
 }
 
-.palette {
+.palette, .controls {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+}
+
+.palette button,
+.controls button {
+  cursor: pointer;
+  flex: 0 0 64px;
+  width: 64px;
+  border: 1px solid black;
 }
 
 .palette button {
   transition: all .3s ease;
-  flex: 0 0 64px;
-  width: 64px;
-  border: none;
-  border: 1px solid black;
 }
 
 .palette button.active {
@@ -60,5 +63,13 @@ main {
   flex: 0 0 64px;
   height: 64px;
   border: 1px solid black;
+}
+
+.controls button {
+  background: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 4px;
+  margin: 4px 0;
 }
 
