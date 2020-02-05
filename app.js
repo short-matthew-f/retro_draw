@@ -1,74 +1,81 @@
-// 1
-const PALETTE = [
-  "red", "orange", "yellow", "green", "blue", "rebeccapurple", "pink", "white", "black"
-];
-
-// 1
 function makePalette() {
-  let palette = $('.palette');
+  const PALETTE = [
+    "red", "orange", "yellow", "green", "blue", "rebeccapurple", "pink", "white", "black"
+  ];
+
+  const paletteElement = $('.palette');
 
   for (let i = 0; i < PALETTE.length; i++) {
-    let button = $('<button>')
-    button.css('backgroundColor', PALETTE[i])
-    palette.append(button)
+    let button = $('<button>');
+    button.css('backgroundColor', PALETTE[i]);
+    paletteElement.append(button);
   }
+
+  $('.palette button').first().addClass('active');
 }
 
-makePalette()
+makePalette();
 
-// 1
 function makeGrid() {
-  let grid = $('.grid');
-
+  const gridElement = $('.grid');
+  
   for (let i = 0; i < 64; i++) {
     let cell = $('<div class="cell"></div>');
-    grid.append(cell);
+    gridElement.append(cell);
   }
 }
 
 makeGrid();
 
-// 2
-$('.palette button').click(function () {
-  $('.active').removeClass('active');
+function onPaletteClick() {
+  $('.palette .active').removeClass('active');
   $(this).addClass('active');
-});
+}
 
-// 2
-$('.cell').click(function () {
-  let activeColor = $('.palette .active').css('backgroundColor');
-  let cellColor = $(this).css('backgroundColor');
+$('.palette button').click(onPaletteClick)
 
+function onGridClick() {
+  let activeColor = $('.palette .active').css('background-color');
+  let cellColor = $(this).css('background-color');
+  
   if (cellColor === activeColor) {
     //3
-    $(this).css('backgroundColor', '');
+    $(this).css('background-color', '');
   } else {
     // 2
-    $(this).css('backgroundColor', activeColor);
+    $(this).css('background-color', activeColor);
   }
-});
+}
 
-// 2
-$('.clear').click(function () {
-  $('.cell').css('backgroundColor', '');
-});
+$('.grid .cell').click(onGridClick);
 
-// 2
-$('.fill').click(function () {
+function onClearClick() {
+  $('.grid .cell').css('backgroundColor', '');
+}
+
+$('.controls .clear').click(onClearClick);
+
+
+function onFillAllClick() {
   let activeColor = $('.palette .active').css('backgroundColor');
   $('.cell').css('backgroundColor', activeColor);
-})
+}
 
-// 3
-$('.fill-empty').click(function () {
+$('.fill-all').click(onFillAllClick)
+
+function onFillEmptyClick() {
   let activeColor = $('.palette .active').css('backgroundColor');
   let cells = $('.cell');
 
   for (let i = 0; i < cells.length; i++) {
     let cell = cells[i];
 
+    console.log($(cell).css('background-color'))
+
     if ($(cell).css('backgroundColor') == 'rgba(0, 0, 0, 0)') {
       $(cell).css('backgroundColor', activeColor);
     }
   }
-});
+}
+
+$('.fill-empty').click(onFillEmptyClick);
